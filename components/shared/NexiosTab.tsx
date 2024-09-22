@@ -29,7 +29,7 @@ const NexiosTab = async({ currentUserId, accountId, accountType }: Props) => {
                     image:nexio.author.image,
                     id:nexio.author.id
                 }}
-                community={nexio.community} //todo
+                community={nexio.community}
                 createdAt={nexio.createdAt}
                 comments={nexio.children}
               />

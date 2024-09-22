@@ -16,11 +16,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { usePathname, useRouter } from "next/navigation";
 import { nexioValidation } from "@/lib/validations/nexio";
 import { createNexio } from "@/lib/actions/nexio.actions";
+import { useOrganization } from "@clerk/nextjs";
 
 // Expect userId as a prop from the server-side component
 const PostNexio = ({ userId }: { userId: string }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const {organization} = useOrganization()
 
   const form = useForm({
     resolver: zodResolver(nexioValidation),
@@ -35,7 +37,7 @@ const PostNexio = ({ userId }: { userId: string }) => {
     await createNexio({
       text: values.nexio,
       author: userId,
-      communityId: null,
+      communityId: organization ? organization.id : null,
       path: pathname,
     });
     router.push("/");
